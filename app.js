@@ -10,25 +10,27 @@ mongoose.connect("mongodb://localhost/yelp_camp");
 //schema setup
 var campgroundSchema = new mongoose.Schema({
 	name: String,
-	image: String
+	image: String,
+	description: String
 });
 
 //campground object model
 var Campground = mongoose.model("Campground", campgroundSchema);
 
 //create an entry
-// Campground.create(
-// 	{
-// 		name:'Malvern Hills',
-// 		image:"http://unsplash.it/300/300"
-// 	}, function(err, campground){
-// 		if(err){
-// 			console.log(err);
-// 		} else {
-// 			console.log("new campground created");
-// 			console.log(campground);
-// 		}
-// 	});
+Campground.create(
+	{
+		name:'Malvern Hills',
+		image:"http://unsplash.it/300/300",
+		description: "If you're a fan of nice water come visit us"
+	}, function(err, campground){
+		if(err){
+			console.log(err);
+		} else {
+			console.log("new campground created");
+			console.log(campground);
+		}
+	});
 	
 
 app.use(express.static(__dirname + "/www"));
@@ -41,15 +43,14 @@ app.get("/", function(req, res){
 
 app.get("/campgrounds", function(req, res){
 
-//get all campgrounds from the db and render file
-Campground.find({}, function(err, allCampgrounds){
-if(err){
-	console.log(err);
-} else {
-	res.render("campgrounds", {campgrounds: allCampgrounds });
-}
-});
-	// res.render("campgrounds", {campgrounds: campgrounds });
+	//get all campgrounds from the db and render file
+	Campground.find({}, function(err, allCampgrounds){
+		if(err){
+			console.log(err);
+		} else {
+			res.render("campgrounds", {campgrounds: allCampgrounds });
+		};
+	});
 });
 
 
@@ -73,6 +74,12 @@ app.post("/campgrounds", function(req, res){
 
 app.get("/campgrounds/new", function(req, res){
 	res.render("new.ejs")
+});
+
+app.get("/campgrounds/:id", function(req, res){
+	//find campground with provided ID
+	//show template with that campground
+	res.send("THIS WILL BE THE SHOW PAGE ONE DAY");
 });
 
 app.listen("3000", function(){

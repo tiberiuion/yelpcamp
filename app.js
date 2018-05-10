@@ -5,34 +5,17 @@ var express		 	= require("express"),
 	Campground 		= require("./models/campground"),
 	seedDB 			= require("./seeds");
 
-
-seedDB();
 //connect mongoose
 mongoose.connect("mongodb://localhost/yelp_camp_v3");
-
-
-//create an entry
-// Campground.create(
-// 	{
-// 		name:'Malvern Hills',
-// 		image:"http://unsplash.it/300/300",
-// 		description: "If you're a fan of nice water come visit us"
-// 	}, function(err, campground){
-// 		if(err){
-// 			console.log(err);
-// 		} else {
-// 			console.log("new campground created");
-// 			console.log(campground);
-// 		}
-// 	});
 	
 
 app.use(express.static(__dirname + "/www"));
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
+seedDB();
 
 app.get("/", function(req, res){
-	res.render("home");
+	res.render("landing");
 });
 
 app.get("/campgrounds", function(req, res){
@@ -43,12 +26,12 @@ app.get("/campgrounds", function(req, res){
 			console.log(err);
 		} else {
 			console.log("added campground")
-			res.render("index", {campgrounds: allCampgrounds });
+			res.render("campgrounds/index", {campgrounds: allCampgrounds });
 		};
 	});
 });
 
-
+//INDEX - show all campgrounds
 //I really have no idea what's happening here
 app.post("/campgrounds", function(req, res){
 	//get data from form and add to campgrounds array
@@ -67,9 +50,9 @@ app.post("/campgrounds", function(req, res){
 	});
 });
 
-
+//NEW - show form to create new campground
 app.get("/campgrounds/new", function(req, res){
-	res.render("new.ejs")
+	res.render("campgrounds/new")
 });
 
 //SHOW - shows more info about one campground
@@ -81,10 +64,27 @@ app.get("/campgrounds/:id", function(req, res){
 		}else {
 			console.log(foundCampground);
 			//render show template with that campground
-			res.render("show", {campground: foundCampground});
+			res.render("campgrounds/show", {campground: foundCampground});
 		};
 	});
 });
+
+//============================
+// Comments routes
+//============================
+
+app.get("/campgrounds/:id/comments/new", function(req, res){
+	//find campground by id
+	Campground.findById(req.params.id, function(err, campground){
+		if (err) {
+			console.log(err);
+		} else {
+			res.render("comments/new", {campground: campground});
+		};
+	});
+});
+
+
 
 app.listen("3000", function(){
 	console.log('Yelpcamp has started');

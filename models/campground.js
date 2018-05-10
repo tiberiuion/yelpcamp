@@ -1,10 +1,16 @@
 var mongoose = require("mongoose");
 
 //schema setup
-var campgroundSchema = new mongoose.Schema({
+var campgroundSchema = mongoose.Schema({
 	name: String,
 	image: String,
-	description: String
+	description: String,
+	comments: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Comment"
+		}
+	]
 });
 
 //campground object model

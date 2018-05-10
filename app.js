@@ -8,7 +8,7 @@ var express		 	= require("express"),
 
 seedDB();
 //connect mongoose
-mongoose.connect("mongodb://localhost/yelp_camp");
+mongoose.connect("mongodb://localhost/yelp_camp_v3");
 
 
 //create an entry
@@ -42,6 +42,7 @@ app.get("/campgrounds", function(req, res){
 		if(err){
 			console.log(err);
 		} else {
+			console.log("added campground")
 			res.render("index", {campgrounds: allCampgrounds });
 		};
 	});
@@ -74,11 +75,12 @@ app.get("/campgrounds/new", function(req, res){
 //SHOW - shows more info about one campground
 app.get("/campgrounds/:id", function(req, res){
 	//find campground with provided ID
-	Campground.findById(req.params.id, function(err, foundCampground){
+	Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
 		if(err){
 			console.log(err);
 		}else {
-			//show template with that campground
+			console.log(foundCampground);
+			//render show template with that campground
 			res.render("show", {campground: foundCampground});
 		};
 	});

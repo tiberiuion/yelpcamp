@@ -25,7 +25,7 @@ app.get("/campgrounds", function(req, res){
 		if(err){
 			console.log(err);
 		} else {
-			console.log("added campground")
+			console.log("added campground");
 			res.render("campgrounds/index", {campgrounds: allCampgrounds });
 		};
 	});
@@ -106,6 +106,11 @@ app.post("/campgrounds/:id/comments", function(req, res){
 	//connect new comment to campground
 	//redirect campground showpage
 });
+
+
+//===========
+//AUTH ROUTES
+//===========
 
 
 app.listen("3000", function(){

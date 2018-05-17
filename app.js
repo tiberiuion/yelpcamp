@@ -140,10 +140,25 @@ app.post("/register", function(req, res){
 			return res.render("register")
 		}
 		//how does this work???????????????????????????????
+		//also the below is the same as the middleware that's running in the login post route
 		passport.authenticate("local")(req, res, function(){
 			res.redirect("/campgrounds");
 		});
 	});
+});
+
+//show login form
+app.get("/login", function (req, res) {
+	res.render("login");
+});
+
+//we're using a MIDDLEWARE, it's the bit between the route and the usual req,res callback function
+app.post("/login", passport.authenticate("local", 
+	{
+		successRedirect:"/campgrounds",
+		failureRedirect: "/login",
+	}), function (req, res) {
+
 });
 
 

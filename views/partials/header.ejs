@@ -16,9 +16,13 @@
 		</div>
 		 <div class="collapse navbar-collapse">
 		 	<ul class="navbar-nav mr-auto justify-content-end">
-		 		<li class="nav-item"><a class="nav-link" href="/login">login</a></li>
-		 		<li class="nav-item"><a class="nav-link" href="/register">signup</a></li>
-		 		<li class="nav-item"><a class="nav-link" href="/logout">logout</a></li>
+		 		<% if (!currentUser) { %>
+		 		<li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+		 		<li class="nav-item"><a class="nav-link" href="/register">Signup</a></li>
+		 		<% } else { %>
+		 		<li class="nav-item"><a lass="nav-link" href="#">Signed in as <%= currentUser.username %></a></li>
+		 		<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+		 	<% } %>
 		 	</ul>
 		 </div>
 	</div>

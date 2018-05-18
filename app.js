@@ -16,6 +16,11 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 seedDB();
+//create a custom middleware to pass currentUSer to all routes
+app.use(function(req, res, next){
+	res.locals.currentUser = req.user;
+	next();
+});
 
 //PASSPORT CONFIGURATION
 app.use(require("express-session")({
@@ -34,6 +39,7 @@ app.get("/", function(req, res){
 });
 
 app.get("/campgrounds", function(req, res){
+	console.log(req.user);
 
 	//get all campgrounds from the db and render file
 	Campground.find({}, function(err, allCampgrounds){
@@ -41,7 +47,7 @@ app.get("/campgrounds", function(req, res){
 			console.log(err);
 		} else {
 			console.log("added campground");
-			res.render("campgrounds/index", {campgrounds: allCampgrounds });
+			res.render("campgrounds/index", {campgrounds: allCampgrounds, currentUser: req.user });
 		};
 	});
 });

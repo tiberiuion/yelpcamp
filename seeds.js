@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 var Campground = require("./models/campground");
-var Comment = require("./models/comment")
+var Comment = require("./models/comment");
 
 var data = [
 	{
@@ -49,16 +49,16 @@ function seedDB(){
 							campground.comments.push(comment);
 							campground.save();
 							console.log("created new comment");	
-						};
+						}
 						
 					});
-				};
+				}
 			});
 		});
 	});
 	
 	//add a few comments
-};
+}
 
 
 module.exports = seedDB;

@@ -21,7 +21,9 @@ mongoose.connect("mongodb://localhost/yelp_camp_v3");
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
-seedDB();
+// seedDB(); //seed the database
+
+
 //create a custom middleware to pass currentUSer to all routes
 app.use(function(req, res, next){
 	res.locals.currentUser = req.user;

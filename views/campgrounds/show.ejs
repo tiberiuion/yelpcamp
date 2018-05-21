@@ -38,6 +38,9 @@
 					<% })%>
 					</div>
 					<a class="btn btn-warning" href="/campgrounds/<%= campground._id%>/edit">Edit</a>
+					<form id="deleteForm" action="/campgrounds/<%= campground._id%>?_method=delete" method="post">
+						<button class="btn btn-danger">DELETE</button>
+					</form>
 				</div>
 			</div>
 		</div>

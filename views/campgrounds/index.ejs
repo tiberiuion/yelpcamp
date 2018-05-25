@@ -1,6 +1,6 @@
 <% include ../partials/header %>
 
-<h4><%= currentUser %></h4>
+<h4><%=currentUser %></h4>
 <div class="container">
 <header class="jumbotron">
 
@@ -21,8 +21,8 @@
 	<% campgrounds.forEach(function(camp){ %>
 		<div class="col-md-3 col-sm-6"> 
 			<div class="card">
-				<img class="card-img-top" src="<%= camp.image %>">
-				<div class="card-body"><h4 class="card-title"><%= camp.name %>%></h4></div>
+				<img class="card-img-top" src="<%=camp.image %>">
+				<div class="card-body"><h4 class="card-title"><%=camp.name %>%></h4></div>
 				<a href="/campgrounds/<%=camp._id %>" class="btn btn-primary">More info</a>
 			</div> 
 		</div>

@@ -43,6 +43,12 @@ router.post("/",isLoggedIn ,function(req, res){
 	});
 });
 
+//comments edit
+router.get("/:comment_id/edit", function (req, res){
+	res.send("comment edit route");
+});
+//comments update
+
 //middleware
 function isLoggedIn(req, res, next) {
 	if(req.isAuthenticated()){

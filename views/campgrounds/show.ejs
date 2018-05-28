@@ -41,10 +41,13 @@
 						</div>
 					<% })%>
 					</div>
+					<!-- currentUser was declared in app.js and it gets passed to all templates -->
+					<% if(currentUser && campground.author.id.equals(currentUser._id)) { %>
 						<a class="btn btn-warning" href="/campgrounds/<%= campground._id%>/edit">Edit</a>
 						<form id="deleteForm" action="/campgrounds/<%= campground._id%>?_method=delete" method="post">
 							<button class="btn btn-danger">DELETE</button>
 						</form>
+					<% } %>
 				</div>
 			</div>
 		</div>

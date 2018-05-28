@@ -25,13 +25,6 @@ app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 // seedDB(); //seed the database
 
-
-//create a custom middleware to pass currentUSer to all routes
-app.use(function(req, res, next){
-	res.locals.currentUser = req.user;
-	next();
-});
-
 //PASSPORT CONFIGURATION
 app.use(require("express-session")({
 	secret:"Momo and Mimi are the best cats",
@@ -46,9 +39,16 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+//create a custom middleware to pass currentUSer to all routes
+app.use(function(req, res, next){
+	res.locals.currentUser = req.user;
+	next();
+});
+
 app.use( "/", indexRoutes);
 app.use( "/campgrounds/:id/comments", commentRoutes);
 app.use( "/campgrounds", campgroundRoutes);
+
 
 
 app.listen("3000", function(){

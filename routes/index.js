@@ -18,12 +18,13 @@ router.post("/register", function(req, res){
 	var newUser = new User({username: req.body.username});
 	User.register(newUser, req.body.password, function (err, user) {
 		if(err){
-			console.log(err);
+			req.flash("error", err.message);
 			return res.render("register");
 		}
 		//how does this work???????????????????????????????
 		//also the below is the same as the middleware that's running in the login post route
 		passport.authenticate("local")(req, res, function(){
+			req.flash("success", "Welcome to yelpcamp " + user.username);
 			res.redirect("/campgrounds");
 		});
 	});
@@ -51,14 +52,5 @@ router.get("/logout", function (req, res) {
 	req.flash("success", "logged you out");
 	res.redirect("/campgrounds");
 });
-
-//middleware
-
-function isLoggedIn(req, res, next) {
-	if(req.isAuthenticated()){
-		return next();
-	}
-	res.redirect("/login");
-}
 
 module.exports = router;

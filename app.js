@@ -18,7 +18,9 @@ var commentRoutes 		=require("./routes/comments"),
 	indexRoutes 		=require("./routes/index");
 
 //connect mongoose
-mongoose.connect("mongodb://localhost/yelp_camp_v4");
+// mongoose.connect("mongodb://localhost/yelp_camp_v4");
+mongoose.connect("mongodb://tibi:Infinite14@ds247310.mlab.com:47310/yelpcam-1991");
+// mongodb://tibi:Infinite14@ds247310.mlab.com:47310/yelpcam-1991
 	
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));

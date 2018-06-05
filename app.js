@@ -17,9 +17,11 @@ var commentRoutes 		=require("./routes/comments"),
 	campgroundRoutes 	=require("./routes/campgrounds"),
 	indexRoutes 		=require("./routes/index");
 
+console.log(process.env.DATABASEURL);
+
 //connect mongoose
 // mongoose.connect("mongodb://localhost/yelp_camp_v4");
-mongoose.connect("process.env.DATABASEURL");
+mongoose.connect(process.env.DATABASEURL);	
 // mongodb://tibi:Infinite14@ds247310.mlab.com:47310/yelpcam-1991
 	
 app.set("view engine", "ejs");

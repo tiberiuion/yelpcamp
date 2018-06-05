@@ -3,7 +3,7 @@ var express		 	= require("express"),
 	bodyParser		= require("body-parser"),
 	mongoose		= require("mongoose"),
 	passport		= require("passport"),
-	flash			= require("connect-flash")
+	flash			= require("connect-flash"),
 	LocalStrategy	= require("passport-local"),
 	methodOverride	= require("method-override"),
 	Campground 		= require("./models/campground"),
@@ -19,7 +19,7 @@ var commentRoutes 		=require("./routes/comments"),
 
 //connect mongoose
 // mongoose.connect("mongodb://localhost/yelp_camp_v4");
-mongoose.connect("mongodb://tibi:Infinite14@ds247310.mlab.com:47310/yelpcam-1991");
+mongoose.connect("process.env.DATABASEURL");
 // mongodb://tibi:Infinite14@ds247310.mlab.com:47310/yelpcam-1991
 	
 app.set("view engine", "ejs");
